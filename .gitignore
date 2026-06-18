@@ -1,0 +1,74 @@
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+*.class
+*.jar
+*.log
+
+# IntelliJ IDEA
+*.iml
+*.iws
+*.ipr
+out/
+
+# Gradle
+.gradle/
+build/
+
+# Test Results and Reports
+allure-results/
+allure-report/
+test-output/
+reports/
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Build files
+*.o
+*.so
+*.dylib
+*.exe
+*.dll
+
+# Environment variables
+.env
+.env.local
+
+# Dependencies
+node_modules/
+/.classpath
+/.project
+/.settings/
+/.gradle
+/gradle
+
+# Playwright
+.cache/
+

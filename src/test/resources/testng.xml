@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-current.dtd">
+<suite name="Restful Booker API Tests" parallel="methods" thread-count="2">
+    <listeners>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg" />
+        <listener class-name="com.restfulbooker.listeners.AllureTestCaseNameListener" />
+    </listeners>
+
+    <test name="Booking Tests">
+        <classes>
+            <class name="com.restfulbooker.tests.BookingTests" />
+        </classes>
+    </test>
+</suite>
+

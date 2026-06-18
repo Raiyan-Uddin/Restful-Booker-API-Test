@@ -1,0 +1,691 @@
+# Beginner Guide - Part 2 (Strict Line-by-Line)
+
+This file gives strict line-by-line help for:
+- `src/test/java/com/restfulbooker/tests/BookingTests.java`
+- `src/test/java/com/restfulbooker/utils/ApiClient.java`
+- all model files in `src/test/java/com/restfulbooker/models/`
+
+Note: Blank lines are intentionally skipped in this guide because they do not change behavior; they only improve readability.
+
+---
+
+## 1) `BookingTests.java` (line-by-line)
+
+- Line 1: Declares package `com.restfulbooker.tests`.
+- Line 3: Imports REST Assured `Response` object.
+- Line 4: Imports Allure `@Description` annotation.
+- Line 5: Imports Allure `@Feature` annotation.
+- Line 6: Imports Allure `@Story` annotation.
+- Line 7: Imports Allure `@TmsLink` annotation.
+- Line 8: Imports TestNG `@Test` annotation.
+- Line 9: Imports TestNG `Assert` utility.
+- Line 10: Imports API endpoint config constants.
+- Line 11: Imports all model classes (`Auth`, `Booking`, etc.).
+- Line 12: Imports `ApiClient` utility methods.
+- Line 14: Starts JavaDoc comment.
+- Line 15: JavaDoc text for class purpose.
+- Line 16: Ends JavaDoc comment.
+- Line 17: Adds Allure feature label to group tests.
+- Line 18: Starts test class that extends `BaseTest`.
+- Line 20: Comment describing shared state usage.
+- Line 21: Comment describing where `bookingId` comes from.
+- Line 22: Shared booking ID used by dependent tests.
+- Line 24: Comment describing auth token reuse.
+- Line 25: Shared auth token for protected endpoints.
+- Line 27: TestNG annotation for TC 1 with order and display name.
+- Line 28: Allure story label.
+- Line 29: Allure test case link ID.
+- Line 30: Allure test description.
+- Line 31: Starts health-check test method.
+- Line 32: Logs/adds Allure step text.
+- Line 34: Sends GET `/ping` request.
+- Line 36: Logs status code.
+- Line 37: Asserts status must be 201.
+- Line 39: Adds verification step to report.
+- Line 40: Ends method.
+- Line 42: TestNG annotation for TC 2.
+- Line 43: Story label for authentication.
+- Line 44: Test case ID link.
+- Line 45: Human-readable description.
+- Line 46: Starts auth test method.
+- Line 47: Step log for creating credentials.
+- Line 48: Starts builder for `Auth` request body.
+- Line 49: Sets username field.
+- Line 50: Sets password field.
+- Line 51: Builds final `Auth` object.
+- Line 53: Step log for sending auth request.
+- Line 54: Sends POST `/auth`.
+- Line 56: Logs response status.
+- Line 57: Asserts auth status is 200.
+- Line 59: Converts JSON body to `AuthResponse` object.
+- Line 60: Saves token for reuse.
+- Line 62: Ensures token exists.
+- Line 63: Logs token value.
+- Line 65: Adds final verification step.
+- Line 66: Ends method.
+- Line 68: TestNG annotation for TC 3.
+- Line 69: Story label for booking management.
+- Line 70: Test case ID link.
+- Line 71: Description for booking creation.
+- Line 72: Starts create-booking test method.
+- Line 73: Step log for payload preparation.
+- Line 74: Starts `BookingDates` builder.
+- Line 75: Sets check-in date.
+- Line 76: Sets check-out date.
+- Line 77: Builds `BookingDates` object.
+- Line 79: Starts `Booking` builder.
+- Line 80: Sets first name.
+- Line 81: Sets last name.
+- Line 82: Sets total price.
+- Line 83: Sets deposit paid flag.
+- Line 84: Sets nested booking dates.
+- Line 85: Sets additional needs text.
+- Line 86: Builds final `Booking` object.
+- Line 88: Step log for create request.
+- Line 89: Sends POST `/booking`.
+- Line 91: Logs status code.
+- Line 92: Logs response body text.
+- Line 94: Comment explaining skip strategy on failure.
+- Line 95: Checks if status is not 200.
+- Line 96: Logs warning details.
+- Line 97: Throws `SkipException` to skip dependent tests.
+- Line 98: Ends `if` block.
+- Line 100: Maps response JSON to `BookingResponse`.
+- Line 101: Extracts and stores `bookingId`.
+- Line 103: Asserts booking ID exists.
+- Line 104: Asserts booking object exists in response.
+- Line 105: Asserts first name is `John`.
+- Line 107: Logs successful creation with ID.
+- Line 108: Adds verification step.
+- Line 109: Ends method.
+- Line 111: TestNG annotation for TC 4.
+- Line 112: Story label.
+- Line 113: Test case ID link.
+- Line 114: Description for retrieving all bookings.
+- Line 115: Starts method.
+- Line 116: Step log for GET all.
+- Line 118: Sends GET `/booking`.
+- Line 120: Logs status.
+- Line 121: Asserts status is 200.
+- Line 123: Converts response to array.
+- Line 124: Asserts array is not null.
+- Line 125: Asserts at least one booking exists.
+- Line 127: Logs count.
+- Line 128: Adds verification step.
+- Line 129: Ends method.
+- Line 131: TestNG annotation for TC 5 with dependency on create test.
+- Line 132: Story label.
+- Line 133: Test case ID link.
+- Line 134: Description text.
+- Line 135: Starts get-by-ID test method.
+- Line 136: Comment explaining defensive assertion.
+- Line 137: Validates `bookingId` exists.
+- Line 139: Step log including booking ID.
+- Line 141: Builds endpoint `/booking/{id}`.
+- Line 142: Sends GET request.
+- Line 144: Logs status.
+- Line 145: Asserts status is 200.
+- Line 147: Maps body to `Booking` object.
+- Line 148: Asserts object is not null.
+- Line 149: Asserts first name matches expected.
+- Line 151: Logs full guest name.
+- Line 152: Adds verification step.
+- Line 153: Ends method.
+- Line 155: TestNG annotation for TC 6 with dependencies.
+- Line 156: Story label.
+- Line 157: Test case ID link.
+- Line 158: Description text.
+- Line 159: Starts full-update test.
+- Line 160: Comment about dependency-produced values.
+- Line 161: Ensures booking ID exists.
+- Line 162: Ensures auth token exists.
+- Line 164: Step for preparing updated payload.
+- Line 165: Starts `BookingDates` builder for updated dates.
+- Line 166: Sets new check-in.
+- Line 167: Sets new check-out.
+- Line 168: Builds dates object.
+- Line 170: Starts updated booking builder.
+- Line 171: Sets updated first name.
+- Line 172: Sets updated last name.
+- Line 173: Sets updated price.
+- Line 174: Sets deposit flag.
+- Line 175: Sets updated dates object.
+- Line 176: Sets updated additional needs.
+- Line 177: Builds updated booking object.
+- Line 179: Step for PUT request.
+- Line 181: Builds endpoint with booking ID.
+- Line 182: Sends authenticated PUT request.
+- Line 184: Logs status code.
+- Line 185: Asserts status is 200.
+- Line 187: Parses response body to `Booking`.
+- Line 188: Asserts first name changed to `Jane`.
+- Line 190: Logs success.
+- Line 191: Adds verification step.
+- Line 192: Ends method.
+- Line 194: TestNG annotation for TC 7 with dependencies.
+- Line 195: Story label.
+- Line 196: Test case ID link.
+- Line 197: Description text.
+- Line 198: Starts partial-update test.
+- Line 199: Comment about required shared values.
+- Line 200: Checks booking ID.
+- Line 201: Checks token.
+- Line 203: Step for creating partial payload.
+- Line 204: Starts booking builder.
+- Line 205: Sets updated first name only.
+- Line 206: Sets updated last name only.
+- Line 207: Builds partial object.
+- Line 209: Step for PATCH request.
+- Line 211: Builds endpoint with booking ID.
+- Line 212: Sends authenticated PATCH.
+- Line 214: Logs status code.
+- Line 215: Asserts status is 200.
+- Line 217: Logs success.
+- Line 218: Adds verification step.
+- Line 219: Ends method.
+- Line 221: TestNG annotation for TC 8 with dependencies.
+- Line 222: Story label.
+- Line 223: Test case ID link.
+- Line 224: Description text.
+- Line 225: Starts delete test method.
+- Line 226: Comment about dependency data.
+- Line 227: Checks booking ID.
+- Line 228: Checks token.
+- Line 230: Step for DELETE request.
+- Line 232: Builds endpoint with booking ID.
+- Line 233: Sends authenticated DELETE request.
+- Line 235: Logs status code.
+- Line 236: Asserts delete returns 201.
+- Line 238: Logs success.
+- Line 239: Adds verification step.
+- Line 240: Ends method.
+- Line 242: TestNG annotation for TC 9.
+- Line 243: Story label.
+- Line 244: Test case ID link.
+- Line 245: Description text.
+- Line 246: Starts filter-by-first-name test.
+- Line 247: Step log.
+- Line 249: Sends GET with query param `firstname=John`.
+- Line 251: Logs status.
+- Line 252: Asserts status is 200.
+- Line 254: Logs success.
+- Line 255: Adds verification step.
+- Line 256: Ends method.
+- Line 258: TestNG annotation for TC 10.
+- Line 259: Story label.
+- Line 260: Test case ID link.
+- Line 261: Description text.
+- Line 262: Starts filter-by-last-name test.
+- Line 263: Step log.
+- Line 265: Sends GET with query param `lastname=Doe`.
+- Line 267: Logs status.
+- Line 268: Asserts status is 200.
+- Line 270: Logs success.
+- Line 271: Adds verification step.
+- Line 272: Ends method.
+- Line 273: Ends class.
+
+---
+
+## 2) `ApiClient.java` (line-by-line)
+
+- Line 1: Declares package `com.restfulbooker.utils`.
+- Line 3: Imports REST Assured entry class.
+- Line 4: Imports content type enum.
+- Line 5: Imports `RequestSpecification` type.
+- Line 6: Imports response type.
+- Line 7: Imports logger interface.
+- Line 8: Imports logger factory.
+- Line 10: Starts JavaDoc comment.
+- Line 11: Describes utility purpose.
+- Line 12: Ends JavaDoc.
+- Line 13: Starts `ApiClient` class.
+- Line 15: Creates class logger.
+- Line 17: JavaDoc start for helper.
+- Line 18: Explains common request setup helper.
+- Line 19: JavaDoc end.
+- Line 20: Starts `baseRequest()` helper.
+- Line 21: Returns a Rest Assured request chain.
+- Line 22: Begins request builder.
+- Line 23: Sets request content type JSON.
+- Line 24: Sets accepted response type JSON.
+- Line 25: Ends helper method.
+- Line 27: JavaDoc start for auth helper.
+- Line 28: Explains this helper adds auth cookie.
+- Line 29: JavaDoc end.
+- Line 30: Starts `baseRequestWithAuth(token)`.
+- Line 31: Reuses base request and adds `Cookie: token=...`.
+- Line 32: Ends helper.
+- Line 34: JavaDoc start for extract helper.
+- Line 35: Explains centralized response extraction.
+- Line 36: JavaDoc end.
+- Line 37: Starts `extractResponse(...)`.
+- Line 38: Converts chain to final `Response` object.
+- Line 39: Ends helper.
+- Line 41: JavaDoc for `get` method.
+- Line 42: Description text.
+- Line 43: JavaDoc end.
+- Line 44: Starts `get(endpoint)`.
+- Line 45: Logs outgoing GET request.
+- Line 46: Executes GET and extracts response.
+- Line 47: Ends method.
+- Line 49: JavaDoc for GET with path parameter.
+- Line 50: Description text.
+- Line 51: JavaDoc end.
+- Line 52: Starts `getWithPathParam(...)`.
+- Line 53: Logs request and parameter.
+- Line 54: Starts request chain.
+- Line 55: Adds path parameter value.
+- Line 56: Starts execution stage.
+- Line 57: Executes GET.
+- Line 58: Ends method.
+- Line 60: JavaDoc for GET with query parameter.
+- Line 61: Description text.
+- Line 62: JavaDoc end.
+- Line 63: Starts `getWithQueryParams(...)`.
+- Line 64: Logs request and query parameter.
+- Line 65: Starts request chain.
+- Line 66: Adds query parameter.
+- Line 67: Starts execution stage.
+- Line 68: Executes GET.
+- Line 69: Ends method.
+- Line 71: JavaDoc for POST.
+- Line 72: Description text.
+- Line 73: JavaDoc end.
+- Line 74: Starts `post(endpoint, body)`.
+- Line 75: Logs POST request with body.
+- Line 76: Starts request chain.
+- Line 77: Adds JSON body.
+- Line 78: Starts execution stage.
+- Line 79: Executes POST.
+- Line 80: Ends method.
+- Line 82: JavaDoc for authenticated POST.
+- Line 83: Description text.
+- Line 84: JavaDoc end.
+- Line 85: Starts `postWithAuth(...)`.
+- Line 86: Logs authenticated POST request.
+- Line 87: Starts request with auth cookie.
+- Line 88: Adds body.
+- Line 89: Starts execution stage.
+- Line 90: Executes POST.
+- Line 91: Ends method.
+- Line 93: JavaDoc for PUT.
+- Line 94: Description text.
+- Line 95: JavaDoc end.
+- Line 96: Starts `put(endpoint, body)`.
+- Line 97: Logs PUT request.
+- Line 98: Starts request chain.
+- Line 99: Adds body.
+- Line 100: Starts execution stage.
+- Line 101: Executes PUT.
+- Line 102: Ends method.
+- Line 104: JavaDoc for authenticated PUT.
+- Line 105: Description text.
+- Line 106: JavaDoc end.
+- Line 107: Starts `putWithAuth(...)`.
+- Line 108: Logs authenticated PUT request.
+- Line 109: Starts request with auth.
+- Line 110: Adds body.
+- Line 111: Starts execution stage.
+- Line 112: Executes PUT.
+- Line 113: Ends method.
+- Line 115: JavaDoc for PATCH.
+- Line 116: Description text.
+- Line 117: JavaDoc end.
+- Line 118: Starts `patch(endpoint, body)`.
+- Line 119: Logs PATCH request.
+- Line 120: Starts request chain.
+- Line 121: Adds body.
+- Line 122: Starts execution stage.
+- Line 123: Executes PATCH.
+- Line 124: Ends method.
+- Line 126: JavaDoc for authenticated PATCH.
+- Line 127: Description text.
+- Line 128: JavaDoc end.
+- Line 129: Starts `patchWithAuth(...)`.
+- Line 130: Logs authenticated PATCH request.
+- Line 131: Starts request with auth cookie.
+- Line 132: Adds body.
+- Line 133: Starts execution stage.
+- Line 134: Executes PATCH.
+- Line 135: Ends method.
+- Line 137: JavaDoc for DELETE.
+- Line 138: Description text.
+- Line 139: JavaDoc end.
+- Line 140: Starts `delete(endpoint)`.
+- Line 141: Logs DELETE request.
+- Line 142: Executes DELETE and extracts response.
+- Line 143: Ends method.
+- Line 145: JavaDoc for authenticated DELETE.
+- Line 146: Description text.
+- Line 147: JavaDoc end.
+- Line 148: Starts `deleteWithAuth(...)`.
+- Line 149: Logs authenticated DELETE request.
+- Line 150: Executes authenticated DELETE.
+- Line 151: Ends method.
+- Line 152: Ends class.
+
+---
+
+## 3) Model Files (line-by-line)
+
+## 3.1 `Auth.java`
+
+- Line 1: Declares package `com.restfulbooker.models`.
+- Line 3: Imports `@JsonProperty`.
+- Line 4: Imports `@JsonIgnoreProperties`.
+- Line 6: JavaDoc start.
+- Line 7: Describes class purpose.
+- Line 8: JavaDoc end.
+- Line 9: Ignore unknown JSON fields when parsing.
+- Line 10: Starts `Auth` class.
+- Line 12: Maps Java field to JSON key `username`.
+- Line 13: Stores username value.
+- Line 15: Maps Java field to JSON key `password`.
+- Line 16: Stores password value.
+- Line 18: Starts empty constructor.
+- Line 19: Ends empty constructor.
+- Line 21: Starts full constructor.
+- Line 22: Sets username from constructor parameter.
+- Line 23: Sets password from constructor parameter.
+- Line 24: Ends full constructor.
+- Line 26: Starts username getter.
+- Line 27: Returns username value.
+- Line 28: Ends getter.
+- Line 30: Starts username setter.
+- Line 31: Updates username field.
+- Line 32: Ends setter.
+- Line 34: Starts password getter.
+- Line 35: Returns password value.
+- Line 36: Ends getter.
+- Line 38: Starts password setter.
+- Line 39: Updates password field.
+- Line 40: Ends setter.
+- Line 42: Starts static `builder()` method.
+- Line 43: Returns new `AuthBuilder` instance.
+- Line 44: Ends `builder()`.
+- Line 46: Starts inner builder class.
+- Line 47: Builder temp field for username.
+- Line 48: Builder temp field for password.
+- Line 50: Starts builder method `username(...)`.
+- Line 51: Stores given username in builder.
+- Line 52: Returns same builder for chaining.
+- Line 53: Ends method.
+- Line 55: Starts builder method `password(...)`.
+- Line 56: Stores given password in builder.
+- Line 57: Returns builder for chaining.
+- Line 58: Ends method.
+- Line 60: Starts `build()` method.
+- Line 61: Creates final `Auth` object.
+- Line 62: Ends `build()`.
+- Line 63: Ends inner builder class.
+- Line 64: Ends `Auth` class.
+
+## 3.2 `AuthResponse.java`
+
+- Line 1: Declares package.
+- Line 3: Imports `@JsonProperty`.
+- Line 4: Imports `@JsonIgnoreProperties`.
+- Line 6: JavaDoc start.
+- Line 7: Describes response class.
+- Line 8: JavaDoc end.
+- Line 9: Ignores unknown JSON fields.
+- Line 10: Starts `AuthResponse` class.
+- Line 12: Maps `token` JSON key.
+- Line 13: Stores token value.
+- Line 15: Maps `reason` JSON key.
+- Line 16: Stores reason value.
+- Line 18: Empty constructor start.
+- Line 19: Empty constructor end.
+- Line 21: Full constructor start.
+- Line 22: Assigns token.
+- Line 23: Assigns reason.
+- Line 24: Ends full constructor.
+- Line 26: Getter start for token.
+- Line 27: Returns token.
+- Line 28: Getter end.
+- Line 30: Setter start for token.
+- Line 31: Updates token.
+- Line 32: Setter end.
+- Line 34: Getter start for reason.
+- Line 35: Returns reason.
+- Line 36: Getter end.
+- Line 38: Setter start for reason.
+- Line 39: Updates reason.
+- Line 40: Setter end.
+- Line 42: Static builder method start.
+- Line 43: Returns builder.
+- Line 44: Ends method.
+- Line 46: Starts inner builder class.
+- Line 47: Builder temp token field.
+- Line 48: Builder temp reason field.
+- Line 50: Builder `token(...)` start.
+- Line 51: Saves token into builder.
+- Line 52: Returns builder.
+- Line 53: Ends method.
+- Line 55: Builder `reason(...)` start.
+- Line 56: Saves reason into builder.
+- Line 57: Returns builder.
+- Line 58: Ends method.
+- Line 60: `build()` start.
+- Line 61: Creates final `AuthResponse` object.
+- Line 62: Ends `build()`.
+- Line 63: Ends builder class.
+- Line 64: Ends `AuthResponse` class.
+
+## 3.3 `Booking.java`
+
+- Line 1: Declares package.
+- Line 3: Imports `@JsonProperty`.
+- Line 4: Imports `@JsonIgnoreProperties`.
+- Line 6: JavaDoc start.
+- Line 7: Describes booking model.
+- Line 8: JavaDoc end.
+- Line 9: Ignores unknown fields from JSON.
+- Line 10: Starts `Booking` class.
+- Line 12: Maps `firstname` JSON key.
+- Line 13: Field to store first name.
+- Line 15: Maps `lastname` JSON key.
+- Line 16: Field to store last name.
+- Line 18: Maps `totalprice` JSON key.
+- Line 19: Field to store total price.
+- Line 21: Maps `depositpaid` JSON key.
+- Line 22: Field to store deposit status.
+- Line 24: Maps `bookingdates` JSON key.
+- Line 25: Field to store nested dates object.
+- Line 27: Maps `additionalneeds` JSON key.
+- Line 28: Field to store additional needs.
+- Line 30: Empty constructor start.
+- Line 31: Empty constructor end.
+- Line 33: Full constructor start (multi-line signature).
+- Line 34: Continues constructor parameters.
+- Line 35: Assigns first name.
+- Line 36: Assigns last name.
+- Line 37: Assigns total price.
+- Line 38: Assigns deposit flag.
+- Line 39: Assigns booking dates object.
+- Line 40: Assigns additional needs.
+- Line 41: Ends constructor.
+- Line 43: Getter for `firstname` start.
+- Line 44: Returns first name.
+- Line 45: Ends getter.
+- Line 47: Setter for `firstname` start.
+- Line 48: Updates first name.
+- Line 49: Ends setter.
+- Line 51: Getter for `lastname` start.
+- Line 52: Returns last name.
+- Line 53: Ends getter.
+- Line 55: Setter for `lastname` start.
+- Line 56: Updates last name.
+- Line 57: Ends setter.
+- Line 59: Getter for `totalprice` start.
+- Line 60: Returns total price.
+- Line 61: Ends getter.
+- Line 63: Setter for `totalprice` start.
+- Line 64: Updates total price.
+- Line 65: Ends setter.
+- Line 67: Getter for `depositpaid` start.
+- Line 68: Returns deposit flag.
+- Line 69: Ends getter.
+- Line 71: Setter for `depositpaid` start.
+- Line 72: Updates deposit flag.
+- Line 73: Ends setter.
+- Line 75: Getter for `bookingdates` start.
+- Line 76: Returns nested dates object.
+- Line 77: Ends getter.
+- Line 79: Setter for `bookingdates` start.
+- Line 80: Updates nested dates object.
+- Line 81: Ends setter.
+- Line 83: Getter for `additionalneeds` start.
+- Line 84: Returns additional needs.
+- Line 85: Ends getter.
+- Line 87: Setter for `additionalneeds` start.
+- Line 88: Updates additional needs.
+- Line 89: Ends setter.
+- Line 91: Static `builder()` start.
+- Line 92: Returns new `BookingBuilder`.
+- Line 93: Ends `builder()`.
+- Line 95: Starts inner `BookingBuilder` class.
+- Line 96: Builder field for first name.
+- Line 97: Builder field for last name.
+- Line 98: Builder field for total price.
+- Line 99: Builder field for deposit flag.
+- Line 100: Builder field for booking dates.
+- Line 101: Builder field for additional needs.
+- Line 103: Builder method `firstname(...)` start.
+- Line 104: Saves first name to builder.
+- Line 105: Returns builder for chaining.
+- Line 106: Ends method.
+- Line 108: Builder method `lastname(...)` start.
+- Line 109: Saves last name to builder.
+- Line 110: Returns builder.
+- Line 111: Ends method.
+- Line 113: Builder method `totalprice(...)` start.
+- Line 114: Saves total price.
+- Line 115: Returns builder.
+- Line 116: Ends method.
+- Line 118: Builder method `depositpaid(...)` start.
+- Line 119: Saves deposit flag.
+- Line 120: Returns builder.
+- Line 121: Ends method.
+- Line 123: Builder method `bookingdates(...)` start.
+- Line 124: Saves dates object.
+- Line 125: Returns builder.
+- Line 126: Ends method.
+- Line 128: Builder method `additionalneeds(...)` start.
+- Line 129: Saves additional needs.
+- Line 130: Returns builder.
+- Line 131: Ends method.
+- Line 133: `build()` start.
+- Line 134: Creates final `Booking` object with builder fields.
+- Line 135: Ends `build()`.
+- Line 136: Ends inner builder class.
+- Line 137: Ends `Booking` class.
+
+## 3.4 `BookingDates.java`
+
+- Line 1: Declares package.
+- Line 3: Imports `@JsonProperty`.
+- Line 4: Imports `@JsonIgnoreProperties`.
+- Line 6: JavaDoc start.
+- Line 7: Describes booking dates model.
+- Line 8: JavaDoc end.
+- Line 9: Ignores unknown JSON fields.
+- Line 10: Starts `BookingDates` class.
+- Line 12: Maps `checkin` JSON key.
+- Line 13: Field for check-in date.
+- Line 15: Maps `checkout` JSON key.
+- Line 16: Field for check-out date.
+- Line 18: Empty constructor start.
+- Line 19: Empty constructor end.
+- Line 21: Full constructor start.
+- Line 22: Assigns check-in.
+- Line 23: Assigns check-out.
+- Line 24: Ends constructor.
+- Line 26: Getter for check-in start.
+- Line 27: Returns check-in value.
+- Line 28: Ends getter.
+- Line 30: Setter for check-in start.
+- Line 31: Updates check-in field.
+- Line 32: Ends setter.
+- Line 34: Getter for check-out start.
+- Line 35: Returns check-out value.
+- Line 36: Ends getter.
+- Line 38: Setter for check-out start.
+- Line 39: Updates check-out field.
+- Line 40: Ends setter.
+- Line 42: Static builder method start.
+- Line 43: Returns new `BookingDatesBuilder`.
+- Line 44: Ends method.
+- Line 46: Starts inner builder class.
+- Line 47: Builder field for check-in.
+- Line 48: Builder field for check-out.
+- Line 50: Builder `checkin(...)` start.
+- Line 51: Saves check-in value.
+- Line 52: Returns builder.
+- Line 53: Ends method.
+- Line 55: Builder `checkout(...)` start.
+- Line 56: Saves check-out value.
+- Line 57: Returns builder.
+- Line 58: Ends method.
+- Line 60: `build()` start.
+- Line 61: Creates final `BookingDates` object.
+- Line 62: Ends `build()`.
+- Line 63: Ends builder class.
+- Line 64: Ends `BookingDates` class.
+
+## 3.5 `BookingResponse.java`
+
+- Line 1: Declares package.
+- Line 3: Imports `@JsonProperty`.
+- Line 4: Imports `@JsonIgnoreProperties`.
+- Line 6: JavaDoc start.
+- Line 7: Describes booking response model.
+- Line 8: JavaDoc end.
+- Line 9: Ignores unknown JSON fields.
+- Line 10: Starts `BookingResponse` class.
+- Line 12: Maps `bookingid` JSON key.
+- Line 13: Field for booking ID.
+- Line 15: Maps `booking` JSON key.
+- Line 16: Field for nested booking details.
+- Line 18: Empty constructor start.
+- Line 19: Empty constructor end.
+- Line 21: Full constructor start.
+- Line 22: Assigns booking ID.
+- Line 23: Assigns booking object.
+- Line 24: Ends constructor.
+- Line 26: Getter for booking ID start.
+- Line 27: Returns booking ID.
+- Line 28: Ends getter.
+- Line 30: Setter for booking ID start.
+- Line 31: Updates booking ID.
+- Line 32: Ends setter.
+- Line 34: Getter for booking object start.
+- Line 35: Returns booking object.
+- Line 36: Ends getter.
+- Line 38: Setter for booking object start.
+- Line 39: Updates booking object.
+- Line 40: Ends setter.
+- Line 42: Static builder method start.
+- Line 43: Returns new `BookingResponseBuilder`.
+- Line 44: Ends method.
+- Line 46: Starts inner builder class.
+- Line 47: Builder field for booking ID.
+- Line 48: Builder field for booking object.
+- Line 50: Builder method `bookingid(...)` start.
+- Line 51: Saves booking ID into builder.
+- Line 52: Returns builder.
+- Line 53: Ends method.
+- Line 55: Builder method `booking(...)` start.
+- Line 56: Saves booking object into builder.
+- Line 57: Returns builder.
+- Line 58: Ends method.
+- Line 60: `build()` start.
+- Line 61: Creates final `BookingResponse` object.
+- Line 62: Ends `build()`.
+- Line 63: Ends builder class.
+- Line 64: Ends `BookingResponse` class.
+
+---
+
+If you want, next I can add **Part 3: visual diagrams** (request flow + object flow + test dependency flow) to make this even easier to learn.
